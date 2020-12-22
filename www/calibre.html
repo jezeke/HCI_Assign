@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="calibre.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="container-fluid" style="padding-left: 0px; padding-right: 0px;">
+    <nav class="tabbable sticky-top">
+      <div class="row no-gutters">
+        <div class="col-11">
+          <div class="nav nav-tabs navbar-expand" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="libraryTab" data-toggle="tab" href="#navLibrary" role="tab" title="Library">Library</a>
+            <a class="nav-item nav-link" id="fileConversionTab" data-toggle="tab" href="#navFileConversion" title="File Conversion" role="tab">File Conversion</a>
+            <a class="nav-item nav-link" id="book1Tab" data-toggle="tab" href="#navBook1" role="tab" title="Title Of A Book - The Fifth Edition">Title Of A Book - The Fifth Edition</a>
+            <a class="nav-item nav-link" id="book2Tab" data-toggle="tab" href="#navBook2" role="tab" title="Another Book In The Wall">Another Book In The Wall</a>
+          </div>
+        </div>
+        <div class="col-1 container-fluid" style="max-height:30px;">
+          <div class="row no-gutters h-100">
+            <div class="col-12 my-auto h-50" style="max-height: 15px;">
+              <button onclick="leftScroll()" style="max-height: 15px;" type="button" class="h-100 w-100 btn-outline-dark"> <!-- center horizontally -->
+                <
+              </button>
+            </div>
+            <div class="col-12 my-auto h-50" style="max-height: 15px;">
+              <button type="button" style="max-height: 15px;" onclick="rightScroll()" class="h-100 w-100 btn-outline-dark"> <!-- center horizontally -->
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!--Kebab Modal-->
+      <div class="modal fade" id="kebabModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button title="Close" type="button" class="close" data-dismiss="modal">
+                <span>&times;</span>
+              </button>
+            </div>
+            <div class="modal-body container-fluid">
+              <div class="row">
+                <div class="col-4">
+                  <img class="w-100 border" src="bookcover.png"/>
+                </div>
+                <div class="col-8">
+                  <h5>Book Title</h5>
+                  <h6>Book Author</h6>
+                  <div class="modalText" style="padding-left: 15px; padding-right: 15px;">
+                    <p>Last read on the 1st of January 1950.<br>Currently 0% read, at page 0.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row modalButtons" style="margin-top: 4%;">
+                <div class="accordion w-100">
+                  <div class="card">
+                    <div class="card-header" id="headingOne">
+                      <h2 class="mb-0">
+                        <button title="Add this book for file conversion" onclick="notImplemented()" class="btn btn-link" type="button">
+                          <img  class="text-reset img-fluid" src="pdfoutput.png"/>Add for Conversion
+                        </button>
+                      </h2>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="headingTwo">
+                      <h2 class="mb-0">
+                        <button title="View the metadata of this book" onclick="notImplemented()" class="btn btn-link collapsed" type="button">
+                          <img class="img-fluid" src="metadata.png"/>View Metadata
+                        </button>
+                      </h2>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="headingThree">
+                      <h2 class="mb-0">
+                        <button title="Search the contents of this book" onclick="notImplemented()" class="btn btn-link collapsed" type="button">
+                          <img class="img-fluid" src="search.png"/>Search This Document
+                        </button>
+                      </h2>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="headingFour">
+                      <h2 class="mb-0">
+                        <button title="Mark this book as 100% read" onclick="notImplemented()" class="btn btn-link collapsed" type="button">
+                          <img class="img-fluid" src="read.png"/>Mark as Read
+                        </button>
+                      </h2>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="headingFive">
+                      <h2 class="mb-0">
+                        <button title="Delete this book from calibre's library"  onclick="notImplemented()" class="btn btn-link collapsed" type="button">
+                          <img class="img-fluid" src="remove.png"/>Delete This Document
+                        </button>
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter / Sort Modal-->
+      <!-- TODO clean up-->
+      <div class="modal fade" id="filterSortModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button title="Close" type="button" class="close" data-dismiss="modal">
+                <span>&times;</span>
+              </button>
+            </div>
+            <div class="modal-body container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  <h4>Filter</h4>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-check" style="padding-top: 30px">
+                    <input class="form-check-input" type="checkbox" value="" id="0read">
+                    <label class="form-check-label" for="0read">
+                      0% Read
+                    </label>
+                  </div>
+                  <div class="form-check" style="padding-top: 20px">
+                    <input class="form-check-input" type="checkbox" value="" id="partread">
+                    <label class="form-check-label" for="partread">
+                      Partially Read
+                    </label>
+                  </div>
+                  <div class="form-check" style="padding-top: 20px">
+                    <input class="form-check-input" type="checkbox" value="" id="100read">
+                    <label class="form-check-label" for="100read">
+                      100% Read
+                    </label>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label for="bookFormat">Book Format</label>
+                    <select id="bookFormat" class="form-control">
+                      <option selected>Any Format</option>
+                      <option>PDF (Portable Document Format)</option>
+                      <option>Portable Document Format (PDF)</option>
+                      <option>Electronic Publication (EPUB)</option>
+                      <option>Rich Text Format (RTF)</option>
+                      <option>Mobipocket Reader Format (MOBI)</option>
+                      <option>Hypertext Markup Language (HTML)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="bookLang">Book Language</label>
+                    <select id="bookLang" class="form-control">
+                      <option selected>Any Language</option>
+                      <option>. . .</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row border-top" style="padding-top: 10px">
+                <div class="col-6">
+                  <h4>Sort</h4>
+                </div>
+                <div class="col-6">
+                  <label title="Ascending/Descending" class="switch"><input type="checkbox" id="togBtn"><div class="slider round"></div></label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="sortRadios" id="bookTitle" value="option1" checked>
+                    <label class="form-check-label" for="bookTitle">
+                      Book Title
+                    </label>
+                  </div>
+                  <div class="form-check" style="padding-top: 10px">
+                    <input class="form-check-input" type="radio" name="sortRadios" id="authorName" value="option2">
+                    <label class="form-check-label" for="authorName">
+                      Author Name
+                    </label>
+                  </div>
+                  <div class="form-check" style="padding-top: 10px">
+                    <input class="form-check-input" type="radio" name="sortRadios" id="publishDate" value="option3">
+                    <label class="form-check-label" for="publishDate">
+                      Publish Date
+                    </label>
+                  </div>
+                  <div class="form-check" style="padding-top: 10px">
+                    <input class="form-check-input" type="radio" name="sortRadios" id="pageCount" value="option4">
+                    <label class="form-check-label" for="pageCount">
+                      Page Count
+                    </label>
+                  </div>
+                  <div class="form-check" style="padding-top: 10px; padding-bottom: 20px;">
+                    <input class="form-check-input" type="radio" name="sortRadios" id="percentRead" value="option5">
+                    <label class="form-check-label" for="percentRead">
+                      Percent Read
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="navLibrary" role="tabpanel">
+          <!-- LIBRARY -->
+          <div class="container">
+            <div class="row" style="padding-top: 2%">
+              <div class="col-1"></div>
+              <div class="col-6">
+                <input class="form-control" title="Search the library" id="search" type="search" placeholder="Search">
+              </div>
+              <div class="col-1"></div>
+              <div class="col-2 text-center">
+                <button title="Filter / Sort" type="button" data-toggle="modal" data-target="#filterSortModal" class="btn btn-outline-secondary">Filter / Sort</button>
+              </div>
+            </div>
+            <div class="container-fluid" style="padding-top: 4%;">
+              <div class="row">
+                <div class="col-lg-2 col-md-4 col-6 col-card">
+                  <!-- BOOKS LIST -->
+                  <!-- TODO implement fixed or max-height with ellipsis for text overflow -->
+                  <div class="bookCard card h-100" >
+                    <div style="display: inline-block;">
+                      <div class="float-right text-right card-percent">
+                        <strong>25%</strong>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-column bookCard-body card-body h-100">
+                      <h4 class="bookCard-title card-title">Title Of A Book - The Fifth Edition</h4>
+                      <h5 class="bookCard-subtitle card-subtitle">Book Author</h5>
+                      <div class="mt-auto d-flex flex-column align-items-end">
+                        <a href="#" class="float-right kebab-link" data-toggle="modal" data-target="#kebabModal"><p class="fa fa-ellipsis-v"></p></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 col-card">
+                  <div class="bookCard card h-100" >
+                    <div style="display: inline-block;">
+                      <div class="card-percent text-right float-right">
+                        <strong>22%</strong>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-column bookCard-body card-body h-100">
+                      <h4 class="bookCard-title card-title">Another Book In The Wall</h4>
+                      <h5 class="bookCard-subtitle card-subtitle">B Author</h5>
+                      <div class="mt-auto d-flex flex-column align-items-end">
+                        <a href="#" class="float-right kebab-link" data-toggle="modal" data-target="#kebabModal"><p class="fa fa-ellipsis-v"></p></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 col-card">
+                  <div class="bookCard card h-100" >
+                    <div style="display: inline-block;">
+                      <div class="float-right text-right card-percent">
+                        <strong>66%</strong>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-column bookCard-body card-body h-100">
+                      <h4 class="bookCard-title card-title">A Criminal Mind</h4>
+                      <h5 class="bookCard-subtitle card-subtitle">Penny Tentiary</h5>
+                      <div class="mt-auto d-flex flex-column align-items-end">
+                        <a href="#" class="float-right kebab-link" data-toggle="modal" data-target="#kebabModal"><p class="fa fa-ellipsis-v"></p></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 col-card">
+                  <div class="bookCard card h-100" >
+                    <div style="display: inline-block;">
+                      <div class="float-right text-right card-percent">
+                        <strong>58%</strong>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-column bookCard-body card-body h-100">
+                      <h4 class="bookCard-title card-title">The Vegetarian Diet</h4>
+                      <h5 class="bookCard-subtitle card-subtitle">Herb E. Vore</h5>
+                      <div class="mt-auto d-flex flex-column align-items-end">
+                        <a href="#" class="float-right kebab-link" data-toggle="modal" data-target="#kebabModal"><p class="fa fa-ellipsis-v"></p></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 col-card">
+                  <div class="bookCard card h-100" >
+                    <div style="display: inline-block;">
+                      <div class="card-percent float-right text-right">
+                        <strong>4%</strong>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-column bookCard-body card-body h-100">
+                      <h4 class="bookCard-title card-title">Guide to the British Spring-time</h4>
+                      <h5 class="bookCard-subtitle card-subtitle">April Rayne</h5>
+                      <div class="mt-auto d-flex flex-column align-items-end">
+                        <a href="#" class="float-right kebab-link" data-toggle="modal" data-target="#kebabModal"><p class="fa fa-ellipsis-v"></p></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 col-card">
+                  <div class="bookCard card h-100" >
+                    <div style="display: inline-block;">
+                      <div class="float-right text-right card-percent">
+                        <strong>69%</strong>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-column bookCard-body card-body h-100">
+                      <h4 class="bookCard-title card-title">100 Yoga Poses</h4>
+                      <h5 class="bookCard-subtitle card-subtitle">Dawn Wardog</h5>
+                      <div class="mt-auto d-flex flex-column align-items-end">
+                        <a href="#" class="float-right kebab-link" data-toggle="modal" data-target="#kebabModal"><p class="fa fa-ellipsis-v"></p></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="navFileConversion" role="tabpanel">
+          <!-- FILE CONVERSION -->
+          <div class="container" style="padding-top:1%;">
+            <h3 style="padding-top: 2%">Input Files</h3>
+            <div class="row justify-content-center">
+              <div class="col-10 col-md-8" style="margin-bottom: 20px;">
+                <table class="table table-hover border table-sm" >
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col"><button type="button" onclick="fileMenu()" class="close text-success" title="Add">&plus;</button></th>
+                      <th scope="col">File Name</th>
+                      <th scope="col">Title</th>
+                      <th scope="col">Author</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row"><button type="button" onclick="notImplemented()" class="close text-danger" title="Remove">&times;</button></th>
+                      <td>title_of_a_book.pdf</td>
+                      <td>Title Of A Book - The Fifth Edition</td>
+                      <td>Book Author</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><button type="button" onclick="notImplemented()" class="close text-danger" title="Remove">&times;</button></th>
+                      <td>book_in_the_wall.pdf</td>
+                      <td>Another Book In The Wall</td>
+                      <td>B Author</td>
+                    </tr>
+                    <tr>
+                      <th scope="row"><button type="button" onclick="notImplemented()" class="close text-danger" title="Remove">&times;</button></th>
+                      <td>criminal_mind.pdf</td>
+                      <td>A Criminal Mind</td>
+                      <td>Penny Tentiary</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="col-8 col-md-4" style="margin-bottom: 20px;">
+                <div class="row no-gutters w-100" >
+                  <button type="button" title="Begin file conversion" onclick="notImplemented()" class="mx-auto settingsBtn w-100 btn btn-outline-success">Begin Conversion</button>
+                </div>
+                <div class="row no-gutters w-100 text-center" style="padding-top:4%;">
+                  <button type="button" title="Save settings profile to file" onclick="fileMenu()" class="mx-auto settingsBtn w-100 btn btn-outline-secondary">Save Settings...</button>
+                </div>
+                <div class="row no-gutters w-100 text-center" style="padding-top:4%;">
+                  <button type="button" title="Load settings profile from file" onclick="fileMenu()" class="mx-auto settingsBtn w-100 btn btn-outline-secondary">Load Settings...</button>
+                </div>
+              </div>
+            </div>
+            <h3>Output Settings</h3>
+            <div class="row form-group">
+              <label class="col-sm-3 col-form-label" for="filetypeSelect">Export file type:</label>
+              <div class="col-sm-8">
+                <select class="form-control" id="filetypeSelect">
+                  <option>Portable Document Format (PDF)</option>
+                  <option>Electronic Publication (EPUB)</option>
+                  <option>Rich Text Format (RTF)</option>
+                  <option>Mobipocket Reader Format (MOBI)</option>
+                  <option>Hypertext Markup Language (HTML)</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="accordion w-100" id="settingsAccordion">
+                <div class="card">
+                  <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                      <button title="File metadata settings" class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne">
+                        <img class="text-reset img-fluid" src="metadata.png"/>Metadata
+                      </button>
+                    </h2>
+                  </div>
+                  <div id="collapseOne" class="collapse show" data-parent="#settingsAccordion">
+                    <div class="card-body">
+                      Settings go here.
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header" id="headingTwo">
+                    <h2 class="mb-0">
+                      <button title="Document look and feel settings" class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" >
+                        <img class="img-fluid" src="lookandfeel.png"/>Look and Feel
+                      </button>
+                    </h2>
+                  </div>
+                  <div id="collapseTwo" class="collapse" data-parent="#settingsAccordion">
+                    <div class="card-body">
+                      Settings go here.
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header" id="headingThree">
+                    <h2 class="mb-0">
+                      <button title="Heuristic processing settings" class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree">
+                        <img class="img-fluid" src="heuristicprocessing.png"/>Heuristic Processing
+                      </button>
+                    </h2>
+                  </div>
+                  <div id="collapseThree" class="collapse"  data-parent="#settingsAccordion">
+                    <div class="card-body">
+                      Settings go here.
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header" id="headingFour">
+                    <h2 class="mb-0">
+                      <button title="Structure detection settings" class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour">
+                        <img class="img-fluid" src="structuredetection.png"/>Structure Detection
+                      </button>
+                    </h2>
+                  </div>
+                  <div id="collapseFour" class="collapse" data-parent="#settingsAccordion">
+                    <div class="card-body">
+                      Settings go here.
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header" id="headingFive">
+                    <h2 class="mb-0">
+                      <button title="Options for term search and replacement" class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive">
+                        <img class="img-fluid" src="searchandreplace.png"/>Search and Replace
+                      </button>
+                    </h2>
+                  </div>
+                  <div id="collapseFive" class="collapse" data-parent="#settingsAccordion">
+                    <div class="card-body">
+                      Settings go here.
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header" id="headingSix">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSix">
+                        <img title="PDF output settings" class="img-fluid" src="pdfoutput.png"/>PDF Output
+                      </button>
+                    </h2>
+                  </div>
+                  <div id="collapseSix" class="collapse" data-parent="#settingsAccordion">
+                    <div class="card-body">
+                      Settings go here.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="navBook1" role="tabpanel">
+          <!-- BOOK 1 -->
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-2 text-center">
+                <a href="#" onclick="notImplemented()"><img title="Previous Page" class="my-auto w-100 rotate180" src="arrow.png"/></a>
+              </div>
+              <div class="col-8 container-fluid">
+                <div class="row align-items-center">
+                  <div class="col-2 text-center">
+                    <a href="#" onclick="notImplemented()"><img title="View Bookmarks" class="my-auto img-fluid w-100" src="bookmarks.png"/></a>
+                  </div>
+                  <div class="col-2 text-center">
+                    <a href="#" onclick="notImplemented()"><img title="Add Bookmark" class="my-auto img-fluid w-100" src="addbookmark.png"/></a>
+                  </div>
+                  <div class="col-2 text-center">
+                    <a href="#" onclick="notImplemented()"><img title="Search" class="my-auto img-fluid w-100" src="search2.png"/></a>
+                  </div>
+                  <div class="col-2 text-center">
+                    <a href="#" onclick="notImplemented()"><img title="Go to Table of Contents" class="my-auto img-fluid w-100" src="tableofcontents.png"/></a>
+                  </div>
+                  <div class="col-4 text-center">
+                    <a href="#"><img title="Hide this Menu" class="my-auto w-50" src="chevron.png"/></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2 text-center">
+                <a href="#" onclick="notImplemented()"><img title="Next Page" class="my-auto w-100" src="arrow.png"/></a>
+              </div>
+            </div>
+            <div class="row align-items-center" style="margin-top: 4%;">
+              <div class="col-12">
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tincidunt mauris justo, a molestie tortor imperdiet quis. Donec purus elit, luctus quis placerat mattis, lacinia vitae nibh. Maecenas iaculis orci mauris. Pellentesque egestas, ipsum vestibulum ultrices rhoncus, velit lorem placerat quam, nec sodales risus quam in erat. Integer nec risus est. Pellentesque at aliquam massa. Vestibulum id orci et erat ultrices ornare quis at diam. Duis ornare massa metus, ut varius eros consectetur eget. Suspendisse a elit ligula. Phasellus bibendum dapibus neque, ut tincidunt diam maximus interdum. Nunc mauris tellus, sollicitudin quis velit id, varius consectetur lectus. In eu elementum odio, non laoreet nibh. Vestibulum lorem nulla, semper in tincidunt lobortis, iaculis nec purus. Nullam pharetra pellentesque metus in dignissim. Phasellus luctus nulla dolor, ac vestibulum erat suscipit sit amet. Phasellus vitae molestie nunc, id rutrum lorem.
+                </p>
+                <p>
+                  Nam nulla turpis, faucibus vel rutrum vel, venenatis sed justo. Aliquam interdum maximus nisl, nec tincidunt erat. Fusce diam nulla, feugiat at nisl non, venenatis vulputate metus. Sed et tellus orci. Maecenas ut finibus justo, in ornare purus. Integer dignissim lacinia ex eget iaculis. In consequat vulputate consequat. Donec quis risus pretium, ultricies urna et, suscipit nisl. Suspendisse egestas a turpis ac aliquet. Maecenas aliquam dictum tortor at finibus. Suspendisse eu libero interdum, sagittis ex vel, convallis purus. Vivamus leo ex, consequat eu posuere quis, elementum ut arcu. Sed vitae pellentesque eros. Pellentesque tortor velit, aliquet et turpis maximus, suscipit consequat diam. Cras felis ante, tincidunt nec nulla in, molestie finibus velit. Curabitur tempor, mauris sed dignissim iaculis, est dolor pellentesque elit, et facilisis orci sapien dapibus dui.
+                </p>
+                <p>
+                  Aenean ultricies mi sed ante condimentum, ut varius lorem semper. Aenean nisi enim, tincidunt vel orci in, dapibus sagittis nisi. Morbi tincidunt cursus neque, non scelerisque tortor imperdiet eu. Vestibulum at viverra tortor. Nunc eget neque magna. Pellentesque eu diam orci. Duis quis velit vitae mi interdum pretium. Nullam tempor semper consequat. In at interdum justo, ut malesuada dolor.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="tab-pane fade" id="navBook2" role="tabpanel">
+          <!-- BOOK 2 -->
+          <div class="container-fluid">
+            <div class="row align-items-center">
+              <div class="col-2 text-center">
+                <a href="#" onclick="notImplemented()"><img title="Previous Page" class="my-auto w-100 rotate180" src="arrow.png"/></a>
+              </div>
+              <div class="col-8 container-fluid">
+                <div class="row align-items-center">
+                  <div class="col-2 text-center">
+                    <a href="#" onclick="notImplemented()"><img title="View Bookmarks" class="my-auto img-fluid w-100" src="bookmarks.png"/></a>
+                  </div>
+                  <div class="col-2 text-center">
+                    <a href="#" onclick="notImplemented()"><img title="Add Bookmark" class="my-auto img-fluid w-100" src="addbookmark.png"/></a>
+                  </div>
+                  <div class="col-2 text-center">
+                    <a href="#" onclick="notImplemented()"><img title="Search" class="my-auto img-fluid w-100" src="search2.png"/></a>
+                  </div>
+                  <div class="col-2 text-center">
+                    <a href="#" onclick="notImplemented()"><img title="Go to Table of Contents" class="my-auto img-fluid w-100" src="tableofcontents.png"/></a>
+                  </div>
+                  <div class="col-4 text-center">
+                    <a href="#"><img title="Hide this Menu" class="my-auto w-50" src="chevron.png"/></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2 text-center">
+                <a href="#" onclick="notImplemented()"><img title="Next Page" class="my-auto w-100" src="arrow.png"/></a>
+              </div>
+            </div>
+            <div class="row align-items-center" style="margin-top: 4%;">
+              <div class="col-12">
+                <p>
+                  Suspendisse eu ante a ante egestas molestie. Donec sed quam convallis, maximus nunc at, vulputate velit. Pellentesque elit odio, ultricies vel vestibulum nec, ultricies sed mauris. Vestibulum eget egestas urna. Nunc urna ante, ornare quis metus mollis, malesuada scelerisque odio. Maecenas quis velit ac nulla tempor hendrerit. Morbi scelerisque turpis mi, in finibus magna tempus sit amet. Donec quis malesuada nulla. Aenean sit amet posuere urna. Nullam eu fringilla eros. Nulla vestibulum sapien lorem, at gravida nisi mattis ac. Mauris ornare ante sem, ut feugiat magna egestas non.
+                </p>
+                <p>
+                  Nullam aliquet neque et justo imperdiet, et laoreet erat pellentesque. Suspendisse quis libero rhoncus, consectetur dolor vitae, laoreet risus. Nullam venenatis urna sed tellus facilisis, ut maximus dui viverra. Curabitur suscipit rutrum ipsum, non aliquam dui. Pellentesque elit quam, volutpat sed aliquam sed, congue sed elit. Aliquam dictum tempus arcu. Nulla quis tellus aliquet, condimentum metus ac, fermentum nisl. Mauris cursus feugiat eros, a congue mi pulvinar sed. Phasellus vestibulum hendrerit blandit.
+                </p>
+                <p>
+                  Fusce ultricies ligula felis. Integer porta, nisl eget suscipit dignissim, augue ipsum pellentesque quam, ut congue ex justo eget massa. Aenean et mollis velit, a aliquam arcu. Suspendisse eu magna nec dui vehicula vehicula. Phasellus condimentum ac purus nec bibendum. Proin vel efficitur sapien. Sed maximus mauris nec enim tempor finibus. Pellentesque porta sit amet tortor sit amet interdum. Vestibulum viverra purus et finibus placerat. In tristique vel sapien ac sollicitudin. Donec sagittis metus at sem porta, in consectetur enim porta. Sed eu nulla lacus. Fusce ut ultrices dui. Curabitur aliquam lobortis purus at mollis.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="calibre.js"></script>
+  </body>
+
+  </html>
